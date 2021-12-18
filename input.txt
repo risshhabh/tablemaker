@@ -1,0 +1,8 @@
+# Commented line 1
+Uncommented line 2
+        # Commented line with leading whitespace 3
+# Commented line with trailing whitespace 4      
+     # Commented line with leading and trailing whitespace 5   
+  Uncommented line with leading whitespace 6
+Uncommented line with trailing whitespace 7     
+     Uncommented line with leading and trailing whitespace 8    
