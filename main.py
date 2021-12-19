@@ -1,12 +1,15 @@
-lines = open("input.txt", "r").read().splitlines()
-out = open("output.txt", "w")
+def rm_cmnts():
+    lines = open("input.txt", "r").read().splitlines()
+    lines = [line.strip() for line in lines]
 
-lines = [line.strip() for line in lines]
+    with open("output.txt", "w") as out:
+        try:
+            [out.write(line + "\n") if line[0] != "#" else ... for line in lines]
+        except:
+            raise
 
-[out.write(line + "\n") if line[0] != "#" else ... for line in lines]
+        out.close()
+        return 0
 
 
-
-out.close()
-
-print(f"Task finished.")
+print(f"Removed Comments with {rm_cmnts()}")
