@@ -5,7 +5,8 @@ def init_files(input_name: str = "input.txt", output_name: str = "output.txt") -
         lines = open(f"{input_name}", "r").read().splitlines()
     except FileNotFoundError:
         print("Looks like you don't have your files set up, I did it for you.")
-        lines = open(f"{input_name}.txt", "x").read().splitlines()
+        open(f"{input_name}", "x")
+        lines = open(f"{input_name}", "r").read().splitlines()
 
     # Output
     try:
