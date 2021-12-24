@@ -1,10 +1,13 @@
 def init_files(input_name: str = "input.txt", output_name: str = "output.txt") -> list:
+    
+    # Input
     try:
         lines = open(f"{input_name}", "r").read().splitlines()
     except FileNotFoundError:
         print("Looks like you don't have your files set up, I did it for you.")
         lines = open(f"{input_name}.txt", "x").read().splitlines()
 
+    # Output
     try:
         open(f"{output_name}", "r")
     except FileNotFoundError:
