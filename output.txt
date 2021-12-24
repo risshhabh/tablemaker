@@ -1,4 +1,0 @@
-Uncommented line 2
-Uncommented line with leading whitespace 6
-Uncommented line with trailing whitespace 7
-Uncommented line with leading and trailing whitespace 8
