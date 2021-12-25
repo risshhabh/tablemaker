@@ -65,4 +65,18 @@ def padding_len(nested: list) -> int:
     maxes: list[int] = [max(nest) for nest in lens]
     
     # Finally get longest length.
-    return [max(el) for el in maxes][0]
+    return [max(el) for el in maxes][0] + 2
+
+
+padding = padding_len(splitted_lines)
+print("Found padding value.")
+
+
+def pad_elements(unpadded: list) -> list[list]:
+    """Pads and centers the elements inside of the list."""
+    
+    return [[el.center(padding) for el in row] for row in unpadded]
+
+
+padded = pad_elements(splitted_lines)
+print("Padded list.")
