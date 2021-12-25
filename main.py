@@ -1,19 +1,12 @@
-def init_files(input_name: str = "input.txt", output_name: str = "output.txt") -> list:
-    """Initializes the files if not already."""
+def init_files(filename: str = "table.txt") -> list:
+    """Initializes the file if not already."""
 
-    # Input
     try:
-        lines = open(input_name).read().splitlines()
+        lines = open(filename).read().splitlines()
     except FileNotFoundError:
-        print("Looks like you don't have your files set up, I did it for you.")
-        open(input_name, "x")
-        lines = open(input_name).read().splitlines()
-
-    # Output
-    try:
-        open(output_name)
-    except FileNotFoundError:
-        open(output_name, "x")
+        print("Looks like you don't have your file set up, I did it for you.")
+        open(filename, "x")
+        lines = open(filename).read().splitlines()
 
     return lines
 
