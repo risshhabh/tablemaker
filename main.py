@@ -1,4 +1,7 @@
-def init_files(filename: str = "table.txt") -> list:
+global_filename: str = "table.txt"  # Name of input (and output) file.
+
+
+def init_files(filename: str = global_filename) -> list:
     """
     Initializes the file if not already.
     `filename` is going to be the input, converted to output in end.
@@ -14,10 +17,10 @@ def init_files(filename: str = "table.txt") -> list:
     return lines
 
 
-lines = init_files("table.txt")
+lines = init_files(global_filename)
 
 
-def rm_cmnts(lines: list, filename: str = "table.txt"):
+def rm_cmnts(lines: list, filename: str = global_filename):
     """
     Removes the comments in the table file.
     `lines` is just the lines of the file.
@@ -29,11 +32,11 @@ def rm_cmnts(lines: list, filename: str = "table.txt"):
         [out.write(line + "\n") if line[0] != "#" else ... for line in lines]
 
 
-rm_cmnts(lines, "table.txt")
+rm_cmnts(lines, global_filename)
 print(f"Removed Comments in table file.")
 
 
-def split_filelines(filename: str = "table.txt") -> list[list]:
+def split_filelines(filename: str = global_filename) -> list[list]:
     """
     Splits lines with "|" and returns nested list.
     `filename` is just the input without comments.
@@ -49,38 +52,67 @@ def split_filelines(filename: str = "table.txt") -> list[list]:
     return lines
 
 
-splitted_lines = split_filelines("output.txt")
+splitted_lines = split_filelines(global_filename)
 print("Splitted lines into lists.")
 
 
-def padding_len(nested: list) -> int:
+from itertools import zip_longest
+
+
+def convert_to_col(splitted):
     """
-    Returns the length of the longest element in the table.
-    `nested` is simply a 2D list of the table elements.
+    Essentially makes a list of columns rather than rows.
+
+    Example:
+
+    [
+        [10, 11, 12],
+        [13, 14, 15, 16],
+        [17, 18, 19],
+        [20, 21]
+    ]
+
+    Becomes:
+
+    [
+        (10,   13,   17,   20),
+        (11,   14,   18,   21),
+        (13,   15,   19, None),
+        (16, None, None, None)
+    ]
+    """
+    
+    
+
+
+def padding_len(TEMPORARy: list) -> list[int]:
+    """
+    Returns the length of the longest element in each column in the table.
+    `TEMPORARy` is simply a 2D list of the table elements.
     """
 
     # First make a list of the lengths of each separate table element.
-    lens: list[list[int]] = [[map(len, el) for el in nest] for nest in nested]
+    lens: list[list[int]] = [[map(len, el) for el in nest] for nest in TEMPORARy]
 
-    # Make list of longest lengths in each nested list.
-    maxes: list[int] = [max(nest) for nest in lens]
-
-    # Finally get longest length. Add 2 for more padding.
-    return [max(el) for el in maxes][0] + 2
+    # Make list of longest length string in each column.
+    maxes = []
 
 
 padding = padding_len(splitted_lines)
-print("Found padding value.")
+print("Found padding values.")
 
 
-def pad_elements(unpadded: list) -> list[list]:
+def pad_elements(unpadded: list[list]) -> list[list]:
     """
     Pads and centers the elements inside of the list.
     `unpadded` is simply the 2D list of elements.
     Output is a padded version of the Nested List.
     """
 
-    return [[el.center(padding) for el in row] for row in unpadded]
+    for row in unpadded:
+
+        for ind in range(len(row)):
+            ...
 
 
 padded = pad_elements(splitted_lines)
