@@ -85,20 +85,20 @@ def convert_to_col(splitted: list[list[str]]):
     return list(zip_longest(*splitted))
 
 
-def padding_len(TEMPORARy: list) -> list[int]:
+columnized = convert_to_col(splitted_lines)
+print("Columnized the 2D list.")
+
+
+def padding_len(col_list: list) -> list[int]:
     """
     Returns the length of the longest element in each column in the table.
-    `TEMPORARy` is simply a 2D list of the table elements.
+    `col_list` is simply a 2D list of the columns in the table.
     """
 
-    # First make a list of the lengths of each separate table element.
-    lens: list[list[int]] = [[map(len, el) for el in nest] for nest in TEMPORARy]
-
-    # Make list of longest length string in each column.
-    maxes = []
+    return map(max, [map(len, col) for col in col_list])
 
 
-padding = padding_len(splitted_lines)
+padding = padding_len(columnized)
 print("Found padding values.")
 
 
