@@ -59,7 +59,7 @@ print("Splitted lines into lists.")
 from itertools import zip_longest
 
 
-def convert_to_col(splitted: list[list[str]]):
+def convert_to_col(splitted: list[list[str]]) -> list[list[str, None]]:
     """
     Essentially makes a list of columns rather than rows.
 
@@ -89,7 +89,7 @@ columnized = convert_to_col(splitted_lines)
 print("Columnized the 2D list.")
 
 
-def remove_Nones(None_col_list: list[list[str, None]]):
+def remove_Nones(None_col_list: list[list[str, None]]) -> list[list[str]]:
     """Removes the padding `None`s from the 2D list that are created by itertools.zip_longest()"""
 
     return [[el for el in nested if el is not None] for nested in None_col_list]
@@ -112,18 +112,23 @@ padding = padding_len(columnized)
 print("Found padding values.")
 
 
-def pad_elements(col_list: list[list[str]]) -> list[list]:
+def pad_elements(col_list: list[list[str]], padding: list[int]) -> list[list[str]]:
     """
     Pads and centers the elements inside of the list.
     `col_list` is simply the 2D list of elements, in columns.
     Output is a padded version of the Nested List.
     """
 
-    for row in col_list:
-
-        for ind in range(len(row)):
-            ...
+    out = col_list[:]
+    
+    for col in range(len(col_list)):
+        for el in range(col_list[col]):
+            out[col][el].center(padding[el])
+    
+    return out
 
 
 padded = pad_elements(splitted_lines)
 print("Padded list.")
+
+print(padded)
