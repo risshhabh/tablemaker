@@ -125,14 +125,14 @@ def pad_elements(col_list: list[list[str]], padding: list[int]) -> list[list[str
 
     for col in range(len(out)):
         for el in range(len(out[col])):
-            out[col][el].center(padding[el])
+            out[col][el] = out[col][el].center(padding[el])
 
     return out
 
 
-padded = pad_elements(splitted_lines, padding)
+padded = pad_elements(columnized, padding)
 print("Padded list.")
 
-print(padded)
 
-print("a".center(5))
+def out_str(padded_col_list: list[list[str]]) -> str:
+    ...
