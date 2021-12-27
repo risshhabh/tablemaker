@@ -105,7 +105,9 @@ def padding_len(col_list: list[list[str]]) -> list[int]:
     `col_list` is simply a 2D list of the columns in the table.
     """
 
-    return map(max, [map(len, col) for col in col_list])
+    return [
+        (max(len_col) + 2) for len_col in [[len(el) for el in col] for col in col_list]
+    ]
 
 
 padding = padding_len(columnized)
@@ -119,16 +121,18 @@ def pad_elements(col_list: list[list[str]], padding: list[int]) -> list[list[str
     Output is a padded version of the Nested List.
     """
 
-    out = col_list[:]
-    
-    for col in range(len(col_list)):
-        for el in range(col_list[col]):
+    out = col_list  # Does not work as intended.
+
+    for col in range(len(out)):
+        for el in range(len(out[col])):
             out[col][el].center(padding[el])
-    
+
     return out
 
 
-padded = pad_elements(splitted_lines)
+padded = pad_elements(splitted_lines, padding)
 print("Padded list.")
 
 print(padded)
+
+print("a".center(5))
