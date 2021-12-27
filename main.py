@@ -81,12 +81,22 @@ def convert_to_col(splitted: list[list[str]]):
         (16, None, None, None)
     ]
     """
-    
+
     return list(zip_longest(*splitted))
 
 
 columnized = convert_to_col(splitted_lines)
 print("Columnized the 2D list.")
+
+
+def remove_Nones(None_col_list: list[list[str, None]]):
+    """Removes the padding `None`s from the 2D list that are created by itertools.zip_longest()"""
+
+    return [[el for el in nested if el is not None] for nested in None_col_list]
+
+
+columnized = remove_Nones(columnized)
+print("Removed `None`s from columnized list.")
 
 
 def padding_len(col_list: list[list[str]]) -> list[int]:
