@@ -92,7 +92,9 @@ print("Columnized the 2D list.")
 def remove_Nones(None_col_list: list[list[str, None]]) -> list[list[str]]:
     """Removes the padding `None`s from the 2D list that are created by itertools.zip_longest()"""
 
-    return [[el for el in nested if el is not None] for nested in None_col_list]
+    return [
+        [(el if el is not None else "") for el in nested] for nested in None_col_list
+    ]
 
 
 columnized = remove_Nones(columnized)
@@ -133,6 +135,22 @@ def pad_elements(col_list: list[list[str]], padding: list[int]) -> list[list[str
 padded = pad_elements(columnized, padding)
 print("Padded list.")
 
+print(padded)
 
-def out_str(padded_col_list: list[list[str]]) -> str:
-    ...
+
+def write_out(padded_col_list: list[list[str]], padding: list[int]):
+    """Finally writes the output into the `global_filename` file."""
+    bar = "+" + "+".join(["-" * pad for pad in padding]) + "+"
+    out_to_file: list[str] = []
+
+    for row in range(len(padded_col_list[0])):
+        out_to_file.append("|".join([col[row] for col in padded_col_list]))
+
+    with open(global_filename, "w") as file:
+        for line in out_to_file:
+            file.writelines([bar, line])
+        file.write(bar)
+
+
+write_out(padded, padding)
+print(f"Wrote to {global_filename}.")
