@@ -121,7 +121,7 @@ def pad_elements(col_list: list[list[str]], padding: list[int]) -> list[list[str
     Output is a padded version of the Nested List.
     """
 
-    out = col_list  # Does not work as intended.
+    out = col_list.copy()
 
     for col in range(len(out)):
         for el in range(len(out[col])):
