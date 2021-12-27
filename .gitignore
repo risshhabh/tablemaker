@@ -2,3 +2,6 @@
 
 # input.txt and output.txt
 *.txt
+
+# tests and experiments
+test.py
