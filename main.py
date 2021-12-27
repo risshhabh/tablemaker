@@ -59,7 +59,7 @@ print("Splitted lines into lists.")
 from itertools import zip_longest
 
 
-def convert_to_col(splitted):
+def convert_to_col(splitted: list[list[str]]):
     """
     Essentially makes a list of columns rather than rows.
 
@@ -82,7 +82,7 @@ def convert_to_col(splitted):
     ]
     """
     
-    
+    return list(zip_longest(*splitted))
 
 
 def padding_len(TEMPORARy: list) -> list[int]:
