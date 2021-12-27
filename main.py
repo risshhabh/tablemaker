@@ -137,20 +137,26 @@ print("Padded list.")
 
 print(padded)
 
+def convert_to_row(padded_cols):
+    """Converts `padded_cols` (2D list of padded columns) back to row"""
+    
 
+# Not working as intended.
 def write_out(padded_col_list: list[list[str]], padding: list[int]):
     """Finally writes the output into the `global_filename` file."""
-    bar = "+" + "+".join(["-" * pad for pad in padding]) + "+"
+    bar = "+" + "+".join(["-" * pad for pad in padding]) + "+\n"
     out_to_file: list[str] = []
 
     for row in range(len(padded_col_list[0])):
-        out_to_file.append("|".join([col[row] for col in padded_col_list]))
+        out_to_file.append("|" + "|".join([col[row] for col in padded_col_list]) + "|")
 
     with open(global_filename, "w") as file:
         for line in out_to_file:
-            file.writelines([bar, line])
-        file.write(bar)
+            file.writelines([bar, line, "\n"])
+        file.writelines([bar, "\n"])
 
 
 write_out(padded, padding)
 print(f"Wrote to {global_filename}.")
+
+print(padded)
