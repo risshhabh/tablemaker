@@ -89,7 +89,7 @@ columnized = convert_to_col(splitted_lines)
 print("Columnized the 2D list.")
 
 
-def padding_len(col_list: list) -> list[int]:
+def padding_len(col_list: list[list[str]]) -> list[int]:
     """
     Returns the length of the longest element in each column in the table.
     `col_list` is simply a 2D list of the columns in the table.
@@ -102,14 +102,14 @@ padding = padding_len(columnized)
 print("Found padding values.")
 
 
-def pad_elements(unpadded: list[list]) -> list[list]:
+def pad_elements(col_list: list[list[str]]) -> list[list]:
     """
     Pads and centers the elements inside of the list.
-    `unpadded` is simply the 2D list of elements.
+    `col_list` is simply the 2D list of elements, in columns.
     Output is a padded version of the Nested List.
     """
 
-    for row in unpadded:
+    for row in col_list:
 
         for ind in range(len(row)):
             ...
