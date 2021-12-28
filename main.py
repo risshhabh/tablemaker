@@ -18,7 +18,7 @@ def init_files(filename: str = global_filename) -> list:
 
 
 lines = init_files(global_filename)
-
+exit() if len(lines) == 0 else ...
 
 def rm_cmnts(lines: list, filename: str = global_filename):
     """
@@ -36,7 +36,7 @@ rm_cmnts(lines, global_filename)
 print(f"Removed Comments in table file.")
 
 
-def split_filelines(filename: str = global_filename) -> list[list]:
+def split_filelines(filename: str = global_filename) -> list[list[str]]:
     """
     Splits lines with "|" and returns nested list.
     `filename` is just the input without comments.
@@ -53,7 +53,7 @@ def split_filelines(filename: str = global_filename) -> list[list]:
 
 
 splitted_lines = split_filelines(global_filename)
-print("Splitted lines into lists.")
+print(f"Splitted lines into lists: \n{splitted_lines}")
 
 
 from itertools import zip_longest
@@ -86,7 +86,7 @@ def convert_to_col(splitted: list[list[str]]) -> list[list[str, None]]:
 
 
 columnized = convert_to_col(splitted_lines)
-print("Columnized the 2D list.")
+print(f"Columnized the 2D list: \n{columnized}")
 
 
 def remove_Nones(None_col_list: list[list[str, None]]) -> list[list[str]]:
@@ -98,7 +98,7 @@ def remove_Nones(None_col_list: list[list[str, None]]) -> list[list[str]]:
 
 
 columnized = remove_Nones(columnized)
-print("Removed `None`s from columnized list.")
+print(f"Removed `None`s from columnized list: \n{columnized}")
 
 
 def padding_len(col_list: list[list[str]]) -> list[int]:
@@ -113,7 +113,7 @@ def padding_len(col_list: list[list[str]]) -> list[int]:
 
 
 padding = padding_len(columnized)
-print("Found padding values.")
+print(f"Found padding values: \n{padding}")
 
 
 def pad_elements(col_list: list[list[str]], padding: list[int]) -> list[list[str]]:
@@ -126,16 +126,13 @@ def pad_elements(col_list: list[list[str]], padding: list[int]) -> list[list[str
     out = col_list.copy()
 
     for col in range(len(out)):
-        for el in range(len(out[col])):
-            out[col][el] = out[col][el].center(padding[el])
+        out[col] = [el.center(padding[col]) for el in out[col]]
 
     return out
 
 
 padded = pad_elements(columnized, padding)
-print("Padded list.")
-
-print(padded)
+print(f"Padded list: \n{padded}")
 
 def convert_to_row(padded_cols):
     """Converts `padded_cols` (2D list of padded columns) back to row"""
@@ -157,6 +154,4 @@ def write_out(padded_col_list: list[list[str]], padding: list[int]):
 
 
 write_out(padded, padding)
-print(f"Wrote to {global_filename}.")
-
-print(padded)
+print(f"Wrote to {global_filename}: \n{padded}")
