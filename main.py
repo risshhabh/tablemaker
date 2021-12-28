@@ -137,20 +137,43 @@ print(f"Padded list: \n{padded}")
 def convert_to_row(padded_cols):
     """Converts `padded_cols` (2D list of padded columns) back to row"""
     
+"""
+┌───┬───┐
+│   │   │
+├───┼───┤
+│   │   │
+└───┴───┘
+"""
+
 
 # Not working as intended.
 def write_out(padded_col_list: list[list[str]], padding: list[int]):
     """Finally writes the output into the `global_filename` file."""
-    bar = "+" + "+".join(["-" * pad for pad in padding]) + "+\n"
+    
+    tbar = f"┌{'┬'.join(['─' * pad for pad in padding])}┐\n"
+    mbar = f"├{'┼'.join(['─' * pad for pad in padding])}┤\n"
+    bbar = f"└{'┴'.join(['─' * pad for pad in padding])}┘\n"
+    
     out_to_file: list[str] = []
 
     for row in range(len(padded_col_list[0])):
-        out_to_file.append("|" + "|".join([col[row] for col in padded_col_list]) + "|")
+        out_to_file.append("│" + "│".join([col[row] for col in padded_col_list]) + "│")
 
     with open(global_filename, "w") as file:
-        for line in out_to_file:
-            file.writelines([bar, line, "\n"])
-        file.writelines([bar, "\n"])
+        while True:
+            choice = input("Want bars in between lines? [Y/N]\n--> ").lower()
+            if choice in ("y", "n", "yes", "no"):
+                break
+            print("Invalid input; try again.")
+
+        file.write(tbar)
+        # Without middle bars, you can just make `mbar` to be an empty string.
+        if choice in ("n", "no"):
+            mbar = ""
+        
+        for line in out_to_file[:-1]:
+            file.writelines((line, "\n", mbar))
+        file.write(out_to_file[-1] + f"\n{bbar}")
 
 
 write_out(padded, padding)
