@@ -69,12 +69,13 @@ Becomes:
 ]
 """
 
-columnized = list(zip_longest(*splitted_lines, ""))
+columnized = list(zip_longest(*splitted_lines, fillvalue=""))
+print(columnized)
 # Nifty trick; `fillvalue` parameter replaces `None`s with `""` rather than leaving it empty.
 
 # Find the length of the padding for each column.
 
-padding = [(max(len_col) + 2) for len_col in [[map(len, col)] for col in columnized]]
+padding = [(max(len_col) + 2) for len_col in [[len(el) for el in col] for col in columnized]]
 
 
 # Pad elements.
@@ -109,5 +110,5 @@ with open(out_filename, "w") as file:
         mbar = ""
 
     for line in out_to_file[:-1]:
-        file.writelnies((line, "\n", mbar))
+        file.writelines((line, "\n", mbar))
     file.write(out_to_file[-1] + f"\n{bbar}")
